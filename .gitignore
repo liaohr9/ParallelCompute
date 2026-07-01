@@ -1,0 +1,6 @@
+.DS_Store
+__MACOSX/
+._*
+*.zip
+__pycache__/
+.claude/

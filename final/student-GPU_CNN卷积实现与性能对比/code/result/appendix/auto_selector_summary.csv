@@ -1,0 +1,3 @@
+selector,description,cases,geo_speedup_vs_direct,geo_speedup_vs_main_best
+oracle_best,逐 shape 选择实测最快优化方法,59,1.7355726011181194,1.155685314464405
+profile_rule,按 out_channels 与 stride 选择分组最快方法,59,1.6308828984426798,1.085974400683152

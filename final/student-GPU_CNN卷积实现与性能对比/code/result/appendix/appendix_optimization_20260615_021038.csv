@@ -1,0 +1,7 @@
+method,optimization,input_size,input_channels,kernel,out_channels,stride,padding,out_h,out_w,warmup,iterations,mean_ms,std_ms,min_ms,gflops,workspace_mb,im2col_ms,gemm_ms,max_abs_error,checksum,notes,gpu
+direct_baseline,baseline,256,3,3,1,1,1,256,256,6,60,0.004045,0.001361,0.003104,874.936721,0.000000,0.000000,0.000000,0.000000,-54.900222,one thread per output,NVIDIA GeForce RTX 5090
+shared_tile,shared_memory_tiling,256,3,3,1,1,1,256,256,6,60,0.004818,0.000669,0.003328,734.586519,0.000000,0.000000,0.000000,0.000000,-54.900222,"16x16 output tile, shared input tile",NVIDIA GeForce RTX 5090
+register_block2,register_blocking,256,3,3,1,1,1,256,256,6,60,0.004485,0.000851,0.003264,789.003572,0.000000,0.000000,0.000000,0.000000,-54.900222,one thread computes two neighboring outputs,NVIDIA GeForce RTX 5090
+cross_channel4,cross_output_channel_reuse,256,3,3,1,1,1,256,256,6,60,0.004999,0.000493,0.004032,707.939827,0.000000,0.000000,0.000000,0.000000,-54.900222,one thread reuses input patch for four filters,NVIDIA GeForce RTX 5090
+implicit_im2col,implicit_im2col,256,3,3,1,1,1,256,256,6,60,0.004999,0.000523,0.004192,707.864308,0.000000,0.000000,0.000000,0.000000,-54.900222,GEMM-like block layout without materialized columns,NVIDIA GeForce RTX 5090
+tensor_core_tf32,tensor_core_tf32_gemmex,256,3,3,1,1,1,256,256,6,60,0.021813,0.000637,0.019872,162.241620,6.750000,0.007793,0.006220,0.000000,-54.900229,explicit im2col plus cublasGemmEx FAST_TF32,NVIDIA GeForce RTX 5090
